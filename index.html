@@ -9,11 +9,74 @@
     <script src="https://unpkg.com/vue@3.0.0-beta.12/dist/vue.global.js"></script>
   </head>
   <body>
+    <!-- main app container -->
     <div id="app">
-      <h1>Product goes here</h1>
+      <!-- NAV -->
+      <div class="nav-bar"></div>
+
+      <!-- CART -->
+      <div class="cart">Cart({{ cart }})</div>
+
+      <!-- PRODUCT -->
+      <div class="product-display">
+        <div class="product-container">
+          <div class="product-image">
+            <!-- sock image -->
+            <a v-bind:href="url">
+              <img :src="image" :alt="description">
+            </a>
+          </div>
+
+          <!-- sock details -->
+          <div class="product-info">
+            <h1>{{ title }}</h1>
+
+            <!-- conditional rendering -->
+            <p v-if="inStock">In Stock</p>
+            <p v-else-if="inventory <= 10 && inventory > 0">Almost Sold Out!</p>
+            <p v-else>Out of Stock</p>
+            <p v-if="onSale">On Sale</p>
+
+            <!-- list rendering -->
+            <div id="sizeForm">
+              <form action="">
+                <label for="sockSizes">Choose a size:</label>
+                <select name="sockSizes">
+                  <option v-for="size in sizes">{{ size }}</option>
+                </select>
+              </form>
+            </div>
+            <!-- list rendering -->
+            <ul>
+              <li v-for="detail in details">{{ detail }}</li>
+            </ul>
+            <div
+              v-for="(variant, index) in variants"
+              :key="variant.id"
+              @mouseover="updateVariant(index)"
+              class="color-circle"
+              :style="{ backgroundColor: variant.color }"
+            >
+            </div>
+            <!-- event handling -->
+            <button
+              class="button"
+              :class="{ disabledButton: !inStock }"
+              :disabled="!inStock"
+              v-on:click="addToCart">
+              Add to Cart
+            </button>
+          </div>
+        </div>
+      </div>
     </div>
 
-    <!-- Import Js -->
+    <!-- Import App -->
     <script src="./main.js"></script>
+
+    <!-- Mount App -->
+    <script>
+      const mountedApp = app.mount('#app');
+    </script>
   </body>
 </html>
