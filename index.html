@@ -15,10 +15,14 @@
       <div class="nav-bar"></div>
 
       <!-- CART -->
-      <div class="cart">Cart({{ cart }})</div>
+      <div class="cart">Cart({{ cart.length }})</div>
 
       <!-- PRODUCT -->
-      <product-display v-bind:premium="premium" @add-to-cart="updateCart"></product-display>
+      <product-display
+        v-bind:premium="premium"
+        @add-to-cart="updateCart"
+        @clear-cart="clearCart">
+      </product-display>
     </div>
 
     <!-- Import App -->
