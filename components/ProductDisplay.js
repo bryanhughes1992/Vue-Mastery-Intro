@@ -50,6 +50,7 @@ app.component('product-display', {
           class="color-circle"
           :style="{ backgroundColor: variant.color }">
         </div>
+
         <!-- Add to cart button -->
         <button
           class="button"
@@ -58,9 +59,19 @@ app.component('product-display', {
           v-on:click="addToCart">
           Add to Cart
         </button>
+
         <button
           class="button"
-          v-on:click="clearCart">Clear Cart</button>
+          v-on:click="clearCart">
+          Clear Cart
+        </button>
+
+        <review-list
+          v-if="reviews.length"
+          :reviews="reviews">
+        </review-list>
+
+        <review-form @review-submitted="addReview"></review-form>
       </div>
     </div>
   </div>
@@ -85,7 +96,8 @@ app.component('product-display', {
         'large',
         'x-large',
         'xx-large'
-      ]
+      ],
+      reviews: []
     }
   },
   methods: {
@@ -97,6 +109,9 @@ app.component('product-display', {
     },
     updateVariant(index) {
       this.selectedVariant = index
+    },
+    addReview(review) {
+      this.reviews.push(review)
     }
   },
   computed: {
