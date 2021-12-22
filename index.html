@@ -18,7 +18,7 @@
       <div class="cart">Cart({{ cart }})</div>
 
       <!-- PRODUCT -->
-      <product-display v-bind:premium="premium"></product-display>
+      <product-display v-bind:premium="premium" @add-to-cart="updateCart"></product-display>
     </div>
 
     <!-- Import App -->
